@@ -14,6 +14,12 @@ export const botConfig = {
     // Current online state shown on Discord.
     status: "dnd",
 
+    gateway: {
+      $os: "Horizon OS",
+      $browser: "Horizon OS", // Triggers the VR headset icon
+      $device: "Discord VR"
+    },
+
     // Activity lines shown under the bot name.
     // `type` number mapping from Discord:
     // 0 = Playing
@@ -50,19 +56,6 @@ export const botConfig = {
     testGuildId: process.env.TEST_GUILD_ID,
   },
   
-  const { Client, GatewayIntentBits } = require('discord.js');
-
-const client = new Client({
-    intents: [GatewayIntentBits.Guilds],
-    ws: {
-        properties: {
-            $os: 'Horizon OS',
-            $browser: 'Horizon OS', // Triggers the virtual reality headset icon
-            $device: 'Discord VR'
-        }
-    }
-});
-
   // =========================
   // APPLICATIONS SYSTEM
   // =========================
