@@ -5,6 +5,7 @@ import { logger } from '../../utils/logger.js';
 import { InteractionHelper } from '../../utils/interactionHelper.js';
 import { ModerationService } from '../../services/moderationService.js';
 import { handleInteractionError } from '../../utils/errorHandler.js';
+
 export default {
     data: new SlashCommandBuilder()
         .setName("ban")
@@ -18,7 +19,7 @@ export default {
         .addStringOption((option) =>
             option.setName("reason").setDescription("Reason for the ban"),
         )
-.setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
+        .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     category: "moderation",
 
     async execute(interaction, config, client) {
@@ -33,7 +34,7 @@ export default {
                 throw new Error("You cannot ban the bot.");
             }
 
-            
+            // Execute the backend ban process via your service module
             const result = await ModerationService.banUser({
                 guild: interaction.guild,
                 user,
@@ -41,20 +42,22 @@ export default {
                 reason
             });
 
+            // 1. Post your custom message to the chat channel where the command was run
+            await interaction.channel.send(`bye 🎆🎇🎆🎇🎆🎇🎆🎇🎆🎇✨✨✨🎉🎉 <@${user.id}>`);
+
+            // 2. Respond to the moderator who used the command (fixes the syntax issue)
             await InteractionHelper.universalReply(interaction, {
                 embeds: [
-                    successEmbed(
-                        `🚫 **Banned** ${user.tag}`,
-                        `**Reason:** ${reason}\n**Case ID:** #${result.caseId}`,
-                    ),
+                    successEmbed(`**${user.tag}** has been successfully banned.`, {
+                        reason: reason
+                    })
                 ],
+                ephemeral: true // Visible only to the moderator
             });
+
         } catch (error) {
             logger.error('Ban command error:', error);
             await handleInteractionError(interaction, error, { subtype: 'ban_failed' });
         }
     },
 };
-
-
-
