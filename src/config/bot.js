@@ -14,12 +14,6 @@ export const botConfig = {
     // Current online state shown on Discord.
     status: "online",
 
-    gateway: {
-      $os: "Horizon OS",
-      $browser: "Horizon OS", // Triggers the VR headset icon
-      $device: "Discord VR"
-    },
-
     // Activity lines shown under the bot name.
     // `type` number mapping from Discord:
     // 0 = Playing
