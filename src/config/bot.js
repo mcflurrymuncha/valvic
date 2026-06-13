@@ -12,7 +12,7 @@ export const botConfig = {
   // - "invisible" = appears offline
   presence: {
     // Current online state shown on Discord.
-    status: "dnd",
+    status: "online",
 
     gateway: {
       $os: "Horizon OS",
