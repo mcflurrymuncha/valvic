@@ -12,7 +12,7 @@ export const botConfig = {
   // - "invisible" = appears offline
   presence: {
     // Current online state shown on Discord.
-    status: "online",
+    status: "dnd",
 
     // Activity lines shown under the bot name.
     // `type` number mapping from Discord:
@@ -25,9 +25,9 @@ export const botConfig = {
     activities: [
       {
         // Text users will see (example: "Playing /help | Titan Bot").
-        name: "Made with ❤️",
+        name: "DOWNLOAD QUELLQA",
         // Activity type number (0 = Playing).
-        type: 0, 
+        type: 2, 
       },
     ],
   },
@@ -49,6 +49,19 @@ export const botConfig = {
     // Optional server ID used for testing slash commands quickly.
     testGuildId: process.env.TEST_GUILD_ID,
   },
+  
+  const { Client, GatewayIntentBits } = require('discord.js');
+
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds],
+    ws: {
+        properties: {
+            $os: 'Horizon OS',
+            $browser: 'Horizon OS', // Triggers the virtual reality headset icon
+            $device: 'Discord VR'
+        }
+    }
+});
 
   // =========================
   // APPLICATIONS SYSTEM
