@@ -1,25 +1,40 @@
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-    // If you are using prefix commands instead of slash commands:
-    name: 'say',
-    description: 'Repeats what you say anonymously.',
-    async execute(message, args) {
-        // 1. Check if the user actually provided text
-        const textToSay = args.join(' ');
-        if (!textToSay) {
-            return message.reply('You need to provide a message for me to say!');
-        }
+    // 1. Define the Slash Command structure
+    data: new SlashCommandBuilder()
+        .setName('say')
+        .setDescription('Repeats what you say anonymously.')
+        .addStringOption(option =>
+            option.setName('message')
+                .setDescription('The text you want the bot to repeat')
+                .setRequired(true) // Ensures the user *must* provide text
+        ),
 
-        // 2. Delete the user's original message immediately
+    // 2. Execute the Slash Command
+    async execute(interaction) {
+        // Retrieve the string option provided by the user
+        const textToSay = interaction.options.getString('message');
+
         try {
-            await message.delete();
-        } catch (error) {
-            console.error('Failed to delete the message:', error);
-            // Optional: Let the user know if permissions are missing
-        }
+            // Send the message directly to the channel the interaction took place in
+            await interaction.channel.send(textToSay);
 
-        // 3. Send the content as the bot
-        await message.channel.send(textToSay);
+            // Acknowledge the interaction ephemerally so the user knows it worked, 
+            // but nobody else in the server sees this confirmation.
+            await interaction.reply({ 
+                content: 'Message sent anonymously!', 
+                ephemeral: true 
+            });
+
+        } catch (error) {
+            console.error('Failed to execute say command:', error);
+            
+            // Handle cases where the bot might lack permissions to send messages in that channel
+            await interaction.reply({ 
+                content: 'There was an error trying to send your message. Make sure I have permission to speak here!', 
+                ephemeral: true 
+            });
+        }
     },
 };
