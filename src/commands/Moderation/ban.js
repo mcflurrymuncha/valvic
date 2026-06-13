@@ -45,16 +45,6 @@ export default {
             // 1. Post your custom message to the chat channel where the command was run
             await interaction.channel.send(`bye 🎆🎇🎆🎇🎆🎇🎆🎇🎆🎇✨✨✨🎉🎉 <@${user.id}>`);
 
-            // 2. Respond to the moderator who used the command (fixes the syntax issue)
-            await InteractionHelper.universalReply(interaction, {
-                embeds: [
-                    successEmbed(`**${user.tag}** has been successfully banned.`, {
-                        reason: reason
-                    })
-                ],
-                ephemeral: true // Visible only to the moderator
-            });
-
         } catch (error) {
             logger.error('Ban command error:', error);
             await handleInteractionError(interaction, error, { subtype: 'ban_failed' });
