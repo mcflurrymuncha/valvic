@@ -55,15 +55,6 @@ export default {
       const name1 = sanitizeInput(name1Raw.trim(), 100);
       const name2 = sanitizeInput(name2Raw.trim(), 100);
 
-      
-      if (name1.toLowerCase() === name2.toLowerCase()) {
-        const embed = warningEmbed(
-          "💖 Ship Score",
-          `**${name1}** can't be shipped with themselves! Please choose two different people.`
-        );
-        return await InteractionHelper.safeEditReply(interaction, { embeds: [embed] });
-      }
-
       const sortedNames = [name1, name2].sort();
       const combination = sortedNames.join("-").toLowerCase();
       const score = stringToHash(combination) % 101;
@@ -80,7 +71,7 @@ export default {
       } else if (score >= 20) {
         description = "It's a struggle. They might need space.";
       } else {
-        description = "Zero compatibility. Run for the hills!";
+        description = "sybau twin";
       }
 
       const progressBar =
