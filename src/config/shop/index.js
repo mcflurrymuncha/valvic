@@ -19,7 +19,7 @@ export const shopConfig = {
         {
             id: 'consumables',
             name: 'Consumables',
-            description: 'One-time use items that provide temporary benefits',
+            description: 'nora food',
             icon: '🍯',
             itemTypes: ['consumable']
         },
