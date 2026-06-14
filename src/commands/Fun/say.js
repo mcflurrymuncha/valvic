@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('discord.js');
+import { SlashCommandBuilder } from 'discord.js';
 
-module.exports = {
+export default {
     // 1. Define the Slash Command structure
     data: new SlashCommandBuilder()
         .setName('say')
@@ -8,7 +8,8 @@ module.exports = {
         .addStringOption(option =>
             option.setName('message')
                 .setDescription('The text you want the bot to repeat')
-                .setRequired(true) // Ensures the user *must* provide text
+                .setRequired(true)
+                .setMaxLength(2000) // Discord's maximum character limit
         ),
 
     // 2. Execute the Slash Command
@@ -28,6 +29,8 @@ module.exports = {
             });
 
         } catch (error) {
+            // This will log directly to your custom logger if it's imported globally, 
+            // otherwise standard console.error works safely here.
             console.error('Failed to execute say command:', error);
             
             // Handle cases where the bot might lack permissions to send messages in that channel
