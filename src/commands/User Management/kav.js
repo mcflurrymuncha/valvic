@@ -5,7 +5,7 @@ import { handleInteractionError, TitanBotError, ErrorTypes } from '../../utils/e
 import { InteractionHelper } from '../../utils/interactionHelper.js';
 
 // Replace this with your revival's actual backend API host link
-const REVIVAL_API_URL = 'https://api.pekora.zip/v1'; 
+const REVIVAL_API_URL = 'https://api.pekora.zip/'; 
 
 export default {
   data: new SlashCommandBuilder()
